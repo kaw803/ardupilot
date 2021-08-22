@@ -33,6 +33,11 @@ void GCS_Sub::update_vehicle_sensor_status_flags()
     case ALT_HOLD:
     case AUTO:
     case GUIDED:
+    case RANDOM:  ///
+    case FOLLOW:  ///
+    case LEFTSIDE:  ///
+    case RIGHTSIDE:  ///
+    case SATELLITE:  ///
     case CIRCLE:
     case SURFACE:
     case POSHOLD:

@@ -474,8 +474,39 @@ private:
     void set_auto_yaw_look_at_heading(float angle_deg, float turn_rate_dps, int8_t direction, uint8_t relative_angle);
     void set_auto_yaw_roi(const Location &roi_location);
     float get_auto_heading(void);
-    bool circle_init(void);
+
+    // follow mode
+    float FM_yaw;           // FOLLOWモード内で利用する受信用バッファ
+    float FM_distance;      // FOLLOWモード内で利用する受信用バッファ
+    float FM_master_north,FM_master_east,FM_master_down;    // FOLLOWモード内で利用する受信用バッファ（追加）
+    float FM_follow_north,FM_follow_east,FM_follow_down;    // FOLLOWモード内で利用する受信用バッファ（追加）
+    float FM_last_master_north=0.0, FM_last_master_east=0.0;      // masterのheading推定用に追加
+    float FM_master_heading=0.0;    // masterのheading推定用に追加
+    float adj360(float deg);
+    float adj180(float deg);
+    float deg2rad(float deg);
+    bool follow_recieve_data( float master_north, float master_east, float master_down, float follow_north, float follow_east, float follow_down );
+
+    bool follow_init();
+    void follow_run();
+    bool leftside_init();
+    void leftside_run();
+    bool rightside_init();
+    void rightside_run();
+    bool satellite_init();
+    void satellite_run();
+    bool sbsFollow_init();
+    void sbsFollow_run();
+
+    bool circle_init();
     void circle_run();
+
+    bool heading_init(bool ignore_checks = false);
+    void heading_run();
+    void heading_run2();
+    void pentagon_run();
+    bool random_init(bool ignore_checks = false);
+    void random_run();
     bool guided_init(bool ignore_checks = false);
     void guided_pos_control_start();
     void guided_vel_control_start();

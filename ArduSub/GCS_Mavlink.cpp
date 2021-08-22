@@ -517,7 +517,21 @@ MAV_RESULT GCS_MAVLINK_Sub::handle_command_long_packet(const mavlink_command_lon
             return MAV_RESULT_FAILED;
         }
         return MAV_RESULT_ACCEPTED;
-
+///
+    case MAV_CMD_DO_FOLLOW:
+        // param1 : target angle [0-360]
+        // param2 : distance [m]
+        sub.follow_recieve_data( packet.param1, packet.param2, packet.param3, packet.param4, packet.param5, packet.param6 );
+        return MAV_RESULT_ACCEPTED;
+/*
+    case MAV_CMD_DO_FOLLOW:
+        // param1 : target angle [0-360]
+        // param2 : distance [m]
+        sub.follow_recieve_data( packet.param1, packet.param2 );
+        gcs().send_text(MAV_SEVERITY_CRITICAL, "%0.1f / %0.1fm", packet.param1, packet.param2 );
+        return MAV_RESULT_ACCEPTED;
+*/
+///
     default:
         return GCS_MAVLINK::handle_command_long_packet(packet);
     }

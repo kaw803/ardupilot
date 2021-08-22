@@ -40,6 +40,30 @@ bool Sub::set_mode(control_mode_t mode, ModeReason reason)
         success = guided_init();
         break;
 
+    case RANDOM:  ///
+        success = random_init();
+        break;
+
+    case FOLLOW:  ///
+        success = follow_init();
+        break;
+
+    case LEFTSIDE:  ///
+        success = leftside_init();
+        break;
+
+    case RIGHTSIDE:  ///
+        success = rightside_init();
+        break;
+
+    case SATELLITE:  ///
+        success = satellite_init();
+        break;
+
+    case STEPBYSTEP:  ///
+        success = sbsFollow_init();
+        break;
+
     case SURFACE:
         success = surface_init();
         break;
@@ -132,6 +156,31 @@ void Sub::update_flight_mode()
         guided_run();
         break;
 
+    case RANDOM:
+        // heading_run(); ///
+        random_run(); ///
+        break;
+
+    case FOLLOW:
+        pentagon_run();   ///
+        break;
+
+    case LEFTSIDE:
+        leftside_run();   ///
+        break;
+
+    case RIGHTSIDE:
+        rightside_run();   ///
+        break;
+
+    case SATELLITE:  ///
+        satellite_run();   ///
+        break;
+
+    case STEPBYSTEP:  ///
+        sbsFollow_run();   ///
+        break;
+
     case SURFACE:
         surface_run();
         break;
@@ -175,6 +224,12 @@ bool Sub::mode_requires_GPS(control_mode_t mode)
     switch (mode) {
     case AUTO:
     case GUIDED:
+    case RANDOM:  ///
+    case FOLLOW:  ///
+    case LEFTSIDE:  ///
+    case RIGHTSIDE:  ///
+    case SATELLITE:  ///
+    case STEPBYSTEP:  ///
     case CIRCLE:
     case POSHOLD:
         return true;
@@ -217,6 +272,12 @@ void Sub::notify_flight_mode(control_mode_t mode)
     switch (mode) {
     case AUTO:
     case GUIDED:
+    case RANDOM:  ///
+    case FOLLOW:  ///
+    case LEFTSIDE:  ///
+    case RIGHTSIDE:  ///
+    case SATELLITE:  ///
+    case STEPBYSTEP:  ///
     case CIRCLE:
     case SURFACE:
         // autopilot modes
